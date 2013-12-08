@@ -22,7 +22,7 @@ $ component install darsain/event
 var evt = require('event');
 var el = document.querySelector('body');
 
-evt.bind(a, 'click', callback);
+evt.bind(el, 'click', callback);
 ```
 
 ## API
