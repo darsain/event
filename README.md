@@ -37,4 +37,4 @@ Unbind `el`'s event `type` `callback`, returns the `callback` passed.
 
 ## License
 
-	MIT
+MIT
