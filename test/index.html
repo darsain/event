@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>Event</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	</head>
+	<body>
+		<button class="target">target</button>
+		<pre></pre>
+
+		<script src="../build/build.js"></script>
+		<script>
+			var evt = require('event');
+			var target = document.getElementsByTagName('button')[0];
+			var output = document.getElementsByTagName('pre')[0];
+
+			function selhash(element) {
+				if (!element || !element.nodeName) {
+					return Object.prototype.toString.call(element)
+							.match(/^\[object (\w+)\]$/i)[1]
+							.toLowerCase() + ':' + element;
+				}
+				var parts = [];
+				parts.push(element.nodeName.toLowerCase());
+				if (element.id) {
+					parts.push('#' + element.id);
+				}
+				if (element.className) {
+					parts.push('.' + element.className.split(' ').join('.'));
+				}
+				return parts.join('');
+			}
+
+			function onclick(event) {
+				evt.unbind(target, 'click', onclick);
+
+				output.innerHTML += '`this` should be <em>button.target</em>: <strong>' + selhash(this) + '</strong><br>';
+				output.innerHTML += '`event.target` should be <em>button.target</em>: <strong>' + selhash(event.target) + '</strong><br>';
+
+				event.preventDefault();
+				event.stopPropagation();
+			}
+
+			evt.bind(target, 'click', onclick);
+			evt.bind(document, 'click', function (event) {
+				output.innerHTML += 'window click<br>';
+				event.preventDefault();
+			});
+		</script>
+	</body>
+</html>
