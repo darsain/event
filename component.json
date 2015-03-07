@@ -2,7 +2,7 @@
 	"name": "event",
 	"repo": "darsain/event",
 	"description": "Event binding component with support for legacy browsers.",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"keywords": [
 		"event",
 		"events"
