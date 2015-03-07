@@ -18,12 +18,8 @@ exports.bind = window.addEventListener ? function (el, type, fn, capture) {
 	el[fnid] = el[fnid] || function () {
 		var event = window.event;
 		event.target = event.srcElement;
-		event.preventDefault = function () {
-			event.returnValue = false;
-		};
-		event.stopPropagation = function () {
-			event.cancelBubble = true;
-		};
+		event.preventDefault = preventDefault;
+		event.stopPropagation = stopPropagation;
 		fn.call(el, event);
 	};
 	el.attachEvent('on' + type, el[fnid]);
@@ -54,3 +50,17 @@ exports.unbind = window.removeEventListener ? function (el, type, fn, capture) {
 	}
 	return fn;
 };
+
+/**
+ * Prevets default event action in IE8-.
+ */
+function preventDefault() {
+	this.returnValue = false;
+}
+
+/**
+ * Stops event propagation in IE8-.
+ */
+function stopPropagation() {
+	this.cancelBubble = true;
+}
